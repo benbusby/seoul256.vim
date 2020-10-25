@@ -188,7 +188,11 @@ function! s:hi(item, fg, bg)
     execute printf("highlight %s ctermfg=%s guifg=%s", a:item, fg, get(s:rgb_map, fg, 'NONE'))
   endif
   if !empty(bg)
-    execute printf("highlight %s ctermbg=%s guibg=%s", a:item, bg, get(s:rgb_map, bg, 'NONE'))
+    if a:item ==? 'LineNr' || a:item =~ 'Visual'
+      execute printf("highlight %s ctermbg=%s guibg=%s", a:item, bg, get(s:rgb_map, bg, 'NONE'))
+    else
+      execute printf("highlight %s guibg=default", a:item)
+    endif
   endif
 endfunction
 
