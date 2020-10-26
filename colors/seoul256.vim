@@ -188,7 +188,8 @@ function! s:hi(item, fg, bg)
     execute printf("highlight %s ctermfg=%s guifg=%s", a:item, fg, get(s:rgb_map, fg, 'NONE'))
   endif
   if !empty(bg)
-    if a:item ==? 'LineNr' || a:item =~ 'Visual'
+    let exceptions = ['LineNr', 'Visual', 'VisualNOS', 'MatchParen', 'Search', 'SearchInc']
+    if (index(exceptions, a:item) >= 0)
       execute printf("highlight %s ctermbg=%s guibg=%s", a:item, bg, get(s:rgb_map, bg, 'NONE'))
     else
       execute printf("highlight %s guibg=default", a:item)
@@ -414,7 +415,7 @@ call s:hi('SignifySignDelete', [161, 161], [s:dark_bg + 1, s:light_bg - 2])
 " --------
 call s:hi('CocFloating', [s:dark_fg, s:light_fg], [s:dark_bg_2, s:light_bg - 2])
 
-" http://vim.wikia.com/wiki/Highlight_unwanted_spaces     
+" http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 " ---------------------------------------------------^^^^^
 call s:hi('ExtraWhitespace', ['', ''], [s:dark_bg - 1, s:light_bg - 2])
 
